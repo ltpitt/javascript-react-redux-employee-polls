@@ -1,15 +1,26 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
-import App from "./components/app/App";
-import "./index.css";
-import { configureStore } from "@reduxjs/toolkit";
-import allReducers from "./reducers";
+import thunk from "redux-thunk";
 import { Provider } from "react-redux";
-import middleware from "./middleware";
+import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from "@reduxjs/toolkit";
+import { createRoot } from "react-dom/client";
+
+import App from "./components/app/App";
+
+import logger from "./middleware/logger";
+import authedUserReducer from "./reducers/authedUser";
+import questionsReducer from "./reducers/questions";
+import usersReducer from "./reducers/users";
+
+import "./index.css";
 
 const store = configureStore({
-  reducer: allReducers,
-  middleware: [middleware],
+  reducer: combineReducers({
+    authedUser: authedUserReducer,
+    questions: questionsReducer,
+    users: usersReducer,
+  }),
+  middleware: [thunk, logger],
 });
 
 const container = document.getElementById("root");
