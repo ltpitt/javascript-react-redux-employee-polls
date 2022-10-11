@@ -3,22 +3,45 @@ import Nav from "../nav/Nav";
 import Question from "../question/Question";
 
 const Home = (props) => {
-  console.log(props);
+  console.log(props.authedUser);
   return (
     <div>
       <h3 className="text-center">Employee polls</h3>
       <Nav />
-      <ul className="home-list">
-        {props.questions.map((question) => (
-          <li key={question.id}>
-            <Question
-              question={question}
-              author={props.users[question.author]}
-            />
-          </li>
-        ))}
+      <h2>Unanswered questions</h2>
+      <ul className="unanswered-questions-list">
+        {props.questions
+          .filter(
+            (question) =>
+              !question.optionOne.votes.includes(props.authedUser) &&
+              !question.optionTwo.votes.includes(props.authedUser)
+          )
+          .map((question) => (
+            <li key={question.id}>
+              <Question
+                question={question}
+                author={props.users[question.author]}
+              />
+            </li>
+          ))}
       </ul>
-      Home
+      <h2>Answered questions</h2>
+      <ul className="answered-questions-list">
+        {props.questions
+          .filter(
+            (question) =>
+              question.optionOne.votes.includes(props.authedUser) ||
+              question.optionTwo.votes.includes(props.authedUser)
+          )
+          .map((question) => (
+            <li key={question.id}>
+              <Question
+                question={question}
+                author={props.users[question.author]}
+              />
+            </li>
+          ))}
+      </ul>
     </div>
   );
 };
