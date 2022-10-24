@@ -1,15 +1,28 @@
 import { connect } from "react-redux";
 import Nav from "../nav/Nav";
 import Question from "../question/Question";
+import React from "react";
 
 const Home = (props) => {
-  console.log(props.authedUser);
+  const [showUnansweredQuestions, setShowUnansweredQuestions] =
+    React.useState(true);
+
+  const onClick = () => setShowUnansweredQuestions(!showUnansweredQuestions);
+
   return (
     <div>
-      <h3 className="text-center">Employee polls</h3>
+      <h3 className="text-center">
+        {props.users[props.authedUser]
+          ? "Welcome to employee polls, " + props.users[props.authedUser].name
+          : "Loading..."}
+        .
+      </h3>
       <Nav />
-      <h2>Unanswered questions</h2>
-      <ul className="unanswered-questions-list">
+      <h2 onClick={onClick}>Unanswered questions</h2>
+      <ul
+        className="unanswered-questions-list"
+        hidden={showUnansweredQuestions}
+      >
         {props.questions
           .filter(
             (question) =>
@@ -25,8 +38,8 @@ const Home = (props) => {
             </li>
           ))}
       </ul>
-      <h2>Answered questions</h2>
-      <ul className="answered-questions-list">
+      <h2 onClick={onClick}>Answered questions</h2>
+      <ul className="answered-questions-list" hidden={!showUnansweredQuestions}>
         {props.questions
           .filter(
             (question) =>
