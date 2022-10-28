@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Nav = (users) => {
-  console.log(users.authedUser);
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -39,7 +38,7 @@ const Nav = (users) => {
             <li className="nav-item navbar-right">
               <Link className="nav-link" to="/auth">
                 {users.authedUser
-                  ? users.users[users.authedUser].name
+                  ? "Logout ( " + users.users[users.authedUser].name + " )"
                   : "Login"}
               </Link>
             </li>

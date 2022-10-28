@@ -11,9 +11,9 @@ export function handleInitialData() {
       dispatch(receiveUsers(users));
       dispatch(receiveQuestions(questions));
       dispatch(setAuthedUser(AUTHED_ID));
-      console.log(users);
-      console.log(questions);
-      console.log(AUTHED_ID);
+      // console.log(users);
+      // console.log(questions);
+      // console.log(AUTHED_ID);
     });
   };
 }
