@@ -78,9 +78,7 @@ const Poll = (props) => {
             {props.question.optionOne.text}
           </button>
           <button
-            className={
-              "button-option" + (secondAnswerSelected ? " selected " : "")
-            }
+            className={"button-" + (secondAnswerSelected ? "voted" : "")}
             id="optionTwo"
             disabled={isAnswered}
             onClick={(e) => {
