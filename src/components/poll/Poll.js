@@ -20,6 +20,10 @@ const withRouter = (Component) => {
   return ComponentWithRouterProp;
 };
 const Poll = (props) => {
+  // if (!authedUser || !question || !author) {
+  //   return <Navigate to="/404" />;
+  // }
+
   if (!props.question) return <Navigate to="/404" />;
   const fristAnswerSelected =
     props.question.optionOne.votes.filter((v) => v === props.authedUser)
@@ -34,15 +38,17 @@ const Poll = (props) => {
   function clickButton(e, option) {
     e.preventDefault();
     console.log(
-      "calling handleAddAnswer with authedUser = " +
+      "calling handleAddAnswer passing authedUser = " +
         props.authedUser +
         " and question.id = " +
-        props.question.id
+        props.question.id +
+        " and option = " +
+        option
     );
     props.dispatch(
       handleAddAnswer({
         authedUser: props.authedUser,
-        qid: props.question.id,
+        questionId: props.question.id,
         answer: option,
       })
     );

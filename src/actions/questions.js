@@ -41,9 +41,11 @@ export function handleAddQuestion(firstOption, secondOption) {
   };
 }
 
-export function handleAddAnswer(questionId, answer) {
-  return (dispatch, getState) => {
-    const { authedUser } = getState();
+export function handleAddAnswer(authedUser, questionId, answer) {
+  console.log("authedUser in handleAddAnswer= " + authedUser.id);
+  console.log("questionId  in handleAddAnswer= " + questionId);
+  console.log("answer  in handleAddAnswer= " + answer);
+  return (dispatch) => {
     return saveQuestionAnswer(authedUser.id, questionId, answer).then(() => {
       dispatch(addAnswerQuestion(authedUser.id, questionId, answer));
       dispatch(addAnswerUser(authedUser.id, questionId, answer));
