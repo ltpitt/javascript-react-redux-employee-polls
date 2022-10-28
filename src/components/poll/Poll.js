@@ -20,11 +20,10 @@ const withRouter = (Component) => {
   return ComponentWithRouterProp;
 };
 const Poll = (props) => {
-  // if (!authedUser || !question || !author) {
-  //   return <Navigate to="/404" />;
-  // }
+  if (!props.authedUser || !props.question || !props.question.author) {
+    return <Navigate to="/" />;
+  }
 
-  if (!props.question) return <Navigate to="/404" />;
   const fristAnswerSelected =
     props.question.optionOne.votes.filter((v) => v === props.authedUser)
       .length > 0;
