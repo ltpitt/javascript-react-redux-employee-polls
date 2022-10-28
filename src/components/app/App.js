@@ -23,8 +23,4 @@ const App = (props) => {
   return element;
 };
 
-const mapStateToProps = ({ authedUser }) => ({
-  loading: authedUser === null,
-});
-
 export default connect()(App);

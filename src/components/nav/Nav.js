@@ -1,51 +1,63 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-const Nav = () => {
+const Nav = (users) => {
+  console.log(users.authedUser);
   return (
-    <div>Navigation</div>
-    // <nav className="navbar navbar-expand-lg navbar-light bg-light">
-    //   <button
-    //     className="navbar-toggler"
-    //     type="button"
-    //     data-toggle="collapse"
-    //     data-target="#navbarNavDropdown"
-    //     aria-controls="navbarNavDropdown"
-    //     aria-expanded="false"
-    //     aria-label="Toggle navigation"
-    //   >
-    //     <span className="navbar-toggler-icon"></span>
-    //   </button>
+    <div>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-    //   <div className="collapse navbar-collapse" id="navbarNavDropdown">
-    //     <ul className="navbar-nav">
-    //       <li className="nav-item active">
-    //         <Link className="nav-link" to="/">
-    //           Home
-    //         </Link>
-    //       </li>
-    //       <li className="nav-item">
-    //         <a className="nav-link" href="#">
-    //           Loaderboard
-    //         </a>
-    //       </li>
-    //       <li className="nav-item">
-    //         <a className="nav-link" href="#">
-    //           New
-    //         </a>
-    //       </li>
-    //       <li className="nav-item navbar-right">
-    //         <Link className="nav-link" to="/auth">
-    //           Logout
-    //         </Link>
-    //       </li>
-    //     </ul>
-    //   </div>
-    // </nav>
+        <div className="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul className="navbar-nav">
+            <li className="nav-item active">
+              <Link className="nav-link" to="/">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/leaderboard">
+                Leaderboard
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/new">
+                New
+              </Link>
+            </li>
+            <li className="nav-item navbar-right">
+              <Link className="nav-link" to="/auth">
+                {users.authedUser
+                  ? users.users[users.authedUser].name
+                  : "Login"}
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
   );
 };
 
-export default Nav;
+function mapStateToProps({ authedUser, users }) {
+  return {
+    authedUser,
+    users,
+  };
+}
+
+export default connect(mapStateToProps)(Nav);
 
 // <nav classNameName="nav">
 // <ul>

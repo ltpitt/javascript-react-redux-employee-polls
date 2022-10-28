@@ -11,12 +11,6 @@ const Home = (props) => {
 
   return (
     <div>
-      <h3 className="text-center">
-        {props.users[props.authedUser]
-          ? "Welcome to employee polls, " + props.users[props.authedUser].name
-          : "Loading..."}
-        .
-      </h3>
       <Nav />
       <h2 onClick={onClick}>Unanswered questions</h2>
       <ul
