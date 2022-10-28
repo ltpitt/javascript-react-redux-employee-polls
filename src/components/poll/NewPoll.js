@@ -6,7 +6,7 @@ const Poll = () => {
     <div>
       <Nav />
       <div className="poll">
-        <div>Poll by author.id</div>
+        <div>This is the future Poll component</div>
       </div>
     </div>
   );

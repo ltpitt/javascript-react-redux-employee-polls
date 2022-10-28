@@ -6,7 +6,7 @@ const Leaderboard = () => {
     <div>
       <Nav />
       <div className="leaderboard">
-        <div>Leaderboard</div>
+        <div>This is the future Leaderboard component</div>
       </div>
     </div>
   );
