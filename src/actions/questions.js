@@ -1,9 +1,9 @@
-import { saveQuestion, saveQuestionAnswer } from "../utils/api";
-import { addAnswerUser, addQuestionUser } from "./users";
+import { addQuestionUser } from "./users";
+import { _saveQuestionAnswer, _saveQuestion } from "../utils/_DATA";
 
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
-export const ADD_QUESTION = "ADD_QUESTION";
 export const ADD_QUESTION_ANSWER = "ADD_QUESTION_ANSWER";
+export const ADD_QUESTION = "ADD_QUESTION";
 
 export function receiveQuestions(questions) {
   return {
@@ -19,36 +19,35 @@ function addQuestion(question) {
   };
 }
 
-function addAnswerQuestion(author, qid, answer) {
+export function handleAddQuestion(optionOneText, optionTwoText) {
+  return (dispatch, getState) => {
+    const { authedUser } = getState();
+    return _saveQuestion({
+      optionOneText,
+      optionTwoText,
+      author: authedUser,
+    }).then((question) => {
+      dispatch(addQuestion(question));
+      dispatch(addQuestionUser(authedUser, question.id));
+    });
+  };
+}
+
+export function saveAnswer({ authedUser, qid, answer }) {
   return {
     type: ADD_QUESTION_ANSWER,
-    author,
+    authedUser,
     qid,
     answer,
   };
 }
 
-export function handleAddQuestion(firstOption, secondOption) {
-  return (dispatch, getState) => {
-    const { authedUser } = getState();
-
-    return saveQuestion(firstOption, secondOption, authedUser).then(
-      (question) => {
-        dispatch(addQuestion(question));
-        dispatch(addQuestionUser(question));
-      }
-    );
-  };
-}
-
-export function handleAddAnswer(authedUser, questionId, answer) {
-  console.log("authedUser in handleAddAnswer= " + authedUser.id);
-  console.log("questionId  in handleAddAnswer= " + questionId);
-  console.log("answer  in handleAddAnswer= " + answer);
+export function handleSaveQuestionAnswer({ authedUser, qid, answer }) {
   return (dispatch) => {
-    return saveQuestionAnswer(authedUser.id, questionId, answer).then(() => {
-      dispatch(addAnswerQuestion(authedUser.id, questionId, answer));
-      dispatch(addAnswerUser(authedUser.id, questionId, answer));
+    dispatch(saveAnswer({ authedUser, qid, answer }));
+    return _saveQuestionAnswer({ authedUser, qid, answer }).catch((e) => {
+      console.error("Error: " + e);
+      alert("Error: " + e);
     });
   };
 }

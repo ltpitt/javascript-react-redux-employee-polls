@@ -1,3 +1,5 @@
+import { handleSaveQuestionAnswer } from "../../actions/questions";
+import Nav from "../../components/nav/Nav";
 import { connect } from "react-redux";
 import {
   useLocation,
@@ -5,23 +7,30 @@ import {
   useParams,
   Navigate,
 } from "react-router-dom";
-import Nav from "../nav/Nav";
+import "./Poll.css";
 
-import { handleAddAnswer } from "../../actions/questions";
+function roundToOneDecimal(num) {
+  return Math.round(num * 10) / 10;
+}
 
 const withRouter = (Component) => {
   const ComponentWithRouterProp = (props) => {
-    let location = useLocation();
-    let navigate = useNavigate();
     let params = useParams();
+    let navigate = useNavigate();
+    let location = useLocation();
+
     return <Component {...props} router={{ location, navigate, params }} />;
   };
 
   return ComponentWithRouterProp;
 };
 const Poll = (props) => {
-  if (!props.authedUser || !props.question || !props.question.author) {
-    return <Navigate to="/" />;
+  if (!props.question) {
+    return <Navigate to="/404" />;
+  }
+
+  if (!props.authedUser) {
+    return <Navigate to="/auth" />;
   }
 
   const fristAnswerSelected =
@@ -34,20 +43,15 @@ const Poll = (props) => {
 
   const isAnswered = fristAnswerSelected || secondAnswerSelected;
 
+  console.log("first", fristAnswerSelected);
+  console.log("second", secondAnswerSelected);
+
   function clickButton(e, option) {
     e.preventDefault();
-    console.log(
-      "calling handleAddAnswer passing authedUser = " +
-        props.authedUser +
-        " and question.id = " +
-        props.question.id +
-        " and option = " +
-        option
-    );
     props.dispatch(
-      handleAddAnswer({
+      handleSaveQuestionAnswer({
         authedUser: props.authedUser,
-        questionId: props.question.id,
+        qid: props.question.id,
         answer: option,
       })
     );
@@ -56,24 +60,21 @@ const Poll = (props) => {
   return (
     <div>
       <Nav />
-      <div>
-        <h1>Poll by {props.question.author} </h1>
+      <div className="wrapper-container">
+        <h1>Poll by {props.question.author}</h1>
         <figure>
           <img src={props.userAvatar} alt="Author Avatar" />
         </figure>
-        <h1>Would You Rather </h1>
+        <h1>Would You Rather</h1>
         <div className="option-container">
           <button
-            className={
-              "button-option" + (fristAnswerSelected ? " selected " : "")
-            }
+            className={"button-" + (fristAnswerSelected ? "voted" : "")}
             id="optionOne"
             disabled={isAnswered}
             onClick={(e) => {
               clickButton(e, "optionOne");
             }}
           >
-            {" "}
             {props.question.optionOne.text}
           </button>
           <button
@@ -86,9 +87,45 @@ const Poll = (props) => {
               clickButton(e, "optionTwo");
             }}
           >
-            {" "}
             {props.question.optionTwo.text}
           </button>
+          {isAnswered && (
+            <div>
+              <h3>Statistics : </h3>
+              <div>
+                <h4>{props.question.optionOne.text}</h4>
+                <span>
+                  Votes: <span>{props.question.optionOne.votes.length} </span>
+                </span>
+                <span>
+                  (
+                  {roundToOneDecimal(
+                    (props.question.optionOne.votes.length /
+                      (props.question.optionTwo.votes.length +
+                        props.question.optionOne.votes.length)) *
+                      100
+                  ) + "%"}
+                  )
+                </span>
+              </div>
+              <div>
+                <h4>{props.question.optionTwo.text}</h4>
+                <span>
+                  Votes: <span> {props.question.optionTwo.votes.length}</span>
+                </span>
+                <span>
+                  (
+                  {roundToOneDecimal(
+                    (props.question.optionTwo.votes.length /
+                      (props.question.optionTwo.votes.length +
+                        props.question.optionOne.votes.length)) *
+                      100
+                  ) + "%"}
+                  )
+                </span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

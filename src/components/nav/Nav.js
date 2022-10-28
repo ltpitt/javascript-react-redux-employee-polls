@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.css";
 
 const Nav = (users) => {
   return (

@@ -7,6 +7,7 @@ import { useRoutes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import Leaderboard from "../leaderboard/Leaderboard";
 import NewPoll from "../poll/NewPoll";
+import PageNotFound from "../page_not_found/PageNotFound";
 
 const App = (props) => {
   useEffect(() => {
@@ -18,6 +19,7 @@ const App = (props) => {
     { path: "/leaderboard", element: <Leaderboard /> },
     { path: "/questions/:id", element: <Poll /> },
     { path: "/new", element: <NewPoll /> },
+    { path: "/404", element: <PageNotFound /> },
   ]);
 
   return element;
