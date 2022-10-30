@@ -10,6 +10,12 @@ const Home = (props) => {
 
   const onClick = () => setShowUnansweredQuestions(!showUnansweredQuestions);
 
+  const isLoggedIn = props.authedUser !== null;
+
+  if (!isLoggedIn) {
+    return <Nav />;
+  }
+
   return (
     <div>
       <Nav />

@@ -5,9 +5,14 @@ import "./Nav.css";
 import { setAuthedUser } from "../../actions/authedUser";
 
 const Nav = ({ authedUser, users, dispatch }) => {
-  function clickButton(e, userId) {
+  function changeUser(e, userId) {
     e.preventDefault();
     dispatch(setAuthedUser(userId));
+  }
+
+  function logout(e) {
+    e.preventDefault();
+    dispatch(setAuthedUser(null));
   }
 
   return (
@@ -66,7 +71,9 @@ const Nav = ({ authedUser, users, dispatch }) => {
                   aria-expanded="false"
                 >
                   <img
-                    src={authedUser ? users[authedUser].avatarURL : ""}
+                    src={
+                      authedUser ? users[authedUser].avatarURL : "/login192.png"
+                    }
                     className="rounded-circle img-fluid"
                     height="25"
                     width="25"
@@ -77,34 +84,58 @@ const Nav = ({ authedUser, users, dispatch }) => {
                   className="dropdown-menu dropdown-menu-end p-1"
                   aria-labelledby="navbarDropdown"
                 >
-                  {Object.keys(users)
-                    .filter((user) => user !== users[authedUser].id)
-                    .map((user) => (
-                      <li
-                        key={users[user].id}
-                        className="my-2 d-flex align-items-center"
-                        onClick={(e) => {
-                          clickButton(e, users[user].id);
-                        }}
-                      >
-                        <a className="dropdown-item" href="#">
-                          <img
-                            src={users[user].avatarURL}
-                            className="rounded-circle img-fluid me-1"
-                            height="25"
-                            width="25"
-                          />
-                          <span> {users[user].name}</span>
-                        </a>
-                      </li>
-                    ))}
+                  {authedUser
+                    ? Object.keys(users)
+                        .filter((user) => user !== users[authedUser].id)
+                        .map((user) => (
+                          <li
+                            key={users[user].id}
+                            className="my-2 d-flex align-items-center"
+                            onClick={(e) => {
+                              changeUser(e, users[user].id);
+                            }}
+                          >
+                            <a className="dropdown-item" href="#">
+                              <img
+                                src={users[user].avatarURL}
+                                className="rounded-circle img-fluid me-1"
+                                height="25"
+                                width="25"
+                              />
+                              <span> {users[user].name}</span>
+                            </a>
+                          </li>
+                        ))
+                    : Object.keys(users).map((user) => (
+                        <li
+                          key={users[user].id}
+                          className="my-2 d-flex align-items-center"
+                          onClick={(e) => {
+                            changeUser(e, users[user].id);
+                          }}
+                        >
+                          <a className="dropdown-item" href="#">
+                            <img
+                              src={users[user].avatarURL}
+                              className="rounded-circle img-fluid me-1"
+                              height="25"
+                              width="25"
+                            />
+                            <span> {users[user].name}</span>
+                          </a>
+                        </li>
+                      ))}
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
-                  <li>
-                    <Link className="nav-link" to="/auth">
+                  <li
+                    onClick={(e) => {
+                      logout(e);
+                    }}
+                  >
+                    <a className="nav-link" to="#">
                       Log Out
-                    </Link>
+                    </a>
                   </li>
                 </ul>
               </li>
