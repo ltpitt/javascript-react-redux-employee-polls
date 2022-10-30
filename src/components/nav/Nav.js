@@ -2,15 +2,21 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Nav.css";
+import { setAuthedUser } from "../../actions/authedUser";
 
-const Nav = ({ authedUser, users }) => {
+const Nav = ({ authedUser, users, dispatch }) => {
+  function clickButton(e, userId) {
+    e.preventDefault();
+    dispatch(setAuthedUser(userId));
+  }
+
   return (
     <div className="container">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <Link className="nav-link" to="/">
             <img src="/logo192.png" height="30" alt="" loading="lazy" />
-          </a>
+          </Link>
 
           <button
             className="navbar-toggler"
@@ -77,6 +83,9 @@ const Nav = ({ authedUser, users }) => {
                       <li
                         key={users[user].id}
                         className="my-2 d-flex align-items-center"
+                        onClick={(e) => {
+                          clickButton(e, users[user].id);
+                        }}
                       >
                         <a className="dropdown-item" href="#">
                           <img

@@ -43,9 +43,6 @@ const Poll = (props) => {
 
   const isAnswered = fristAnswerSelected || secondAnswerSelected;
 
-  console.log("first", fristAnswerSelected);
-  console.log("second", secondAnswerSelected);
-
   function clickButton(e, option) {
     e.preventDefault();
     props.dispatch(
