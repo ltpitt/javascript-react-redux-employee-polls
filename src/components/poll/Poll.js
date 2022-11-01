@@ -8,6 +8,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import "./Poll.css";
+import PageNotFound from "../page_not_found/PageNotFound";
 
 function roundToOneDecimal(num) {
   return Math.round(num * 10) / 10;
@@ -24,31 +25,29 @@ const withRouter = (Component) => {
 
   return ComponentWithRouterProp;
 };
-const Poll = (props) => {
-  if (!props.question) {
-    return <Navigate to="/404" />;
+const Poll = ({ authedUser, userAvatar, question, dispatch }) => {
+  const isLoggedIn = authedUser !== null;
+  if (!isLoggedIn) {
+    return (
+      <div>
+        <PageNotFound />
+      </div>
+    );
   }
-
-  if (!props.authedUser) {
-    return <Navigate to="/auth" />;
-  }
-
   const fristAnswerSelected =
-    props.question.optionOne.votes.filter((v) => v === props.authedUser)
-      .length > 0;
+    question.optionOne.votes.filter((v) => v === authedUser).length > 0;
 
   const secondAnswerSelected =
-    props.question.optionTwo.votes.filter((v) => v === props.authedUser)
-      .length > 0;
+    question.optionTwo.votes.filter((v) => v === authedUser).length > 0;
 
   const isAnswered = fristAnswerSelected || secondAnswerSelected;
 
   function clickButton(e, option) {
     e.preventDefault();
-    props.dispatch(
+    dispatch(
       handleSaveQuestionAnswer({
-        authedUser: props.authedUser,
-        qid: props.question.id,
+        authedUser: authedUser,
+        qid: question.id,
         answer: option,
       })
     );
@@ -57,70 +56,70 @@ const Poll = (props) => {
   return (
     <div>
       <Nav />
-      <div className="wrapper-container">
-        <h1>Poll by {props.question.author}</h1>
-        <figure>
-          <img src={props.userAvatar} alt="Author Avatar" />
-        </figure>
-        <h1>Would You Rather</h1>
-        <div className="option-container">
-          <button
-            className={"button-" + (fristAnswerSelected ? "voted" : "")}
-            id="optionOne"
-            disabled={isAnswered}
-            onClick={(e) => {
-              clickButton(e, "optionOne");
-            }}
-          >
-            {props.question.optionOne.text}
-          </button>
-          <button
-            className={"button-" + (secondAnswerSelected ? "voted" : "")}
-            id="optionTwo"
-            disabled={isAnswered}
-            onClick={(e) => {
-              clickButton(e, "optionTwo");
-            }}
-          >
-            {props.question.optionTwo.text}
-          </button>
-          {isAnswered && (
-            <div>
-              <h3>Statistics : </h3>
+      <div className="container">
+        <div className="wrapper-container">
+          <h1>Poll by {question.author}</h1>
+          <figure>
+            <img src={userAvatar} alt="Author Avatar" />
+          </figure>
+          <h1>Would You Rather</h1>
+          <div className="option-container">
+            <button
+              className={"button-" + (fristAnswerSelected ? "voted" : "")}
+              id="optionOne"
+              disabled={isAnswered}
+              onClick={(e) => {
+                clickButton(e, "optionOne");
+              }}
+            >
+              {question.optionOne.text}
+            </button>
+            <button
+              className={"button-" + (secondAnswerSelected ? "voted" : "")}
+              id="optionTwo"
+              disabled={isAnswered}
+              onClick={(e) => {
+                clickButton(e, "optionTwo");
+              }}
+            >
+              {question.optionTwo.text}
+            </button>
+            {isAnswered && (
               <div>
-                <h4>{props.question.optionOne.text}</h4>
-                <span>
-                  Votes: <span>{props.question.optionOne.votes.length} </span>
-                </span>
-                <span>
-                  (
-                  {roundToOneDecimal(
-                    (props.question.optionOne.votes.length /
-                      (props.question.optionTwo.votes.length +
-                        props.question.optionOne.votes.length)) *
-                      100
-                  ) + "%"}
-                  )
-                </span>
+                <h3>Statistics : </h3>
+                <div>
+                  <h4>{question.optionOne.text}</h4>
+                  <span>Votes: {question.optionOne.votes.length}</span>
+                  <span>
+                    {" "}
+                    (
+                    {roundToOneDecimal(
+                      (question.optionOne.votes.length /
+                        (question.optionTwo.votes.length +
+                          question.optionOne.votes.length)) *
+                        100
+                    ) + "%"}
+                    )
+                  </span>
+                </div>
+                <div>
+                  <h4>{question.optionTwo.text}</h4>
+                  <span>Votes: {question.optionTwo.votes.length}</span>
+                  <span>
+                    {" "}
+                    (
+                    {roundToOneDecimal(
+                      (question.optionTwo.votes.length /
+                        (question.optionTwo.votes.length +
+                          question.optionOne.votes.length)) *
+                        100
+                    ) + "%"}
+                    )
+                  </span>
+                </div>
               </div>
-              <div>
-                <h4>{props.question.optionTwo.text}</h4>
-                <span>
-                  Votes: <span> {props.question.optionTwo.votes.length}</span>
-                </span>
-                <span>
-                  (
-                  {roundToOneDecimal(
-                    (props.question.optionTwo.votes.length /
-                      (props.question.optionTwo.votes.length +
-                        props.question.optionOne.votes.length)) *
-                      100
-                  ) + "%"}
-                  )
-                </span>
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -130,14 +129,13 @@ const Poll = (props) => {
 const mapStateToProps = ({ authedUser, questions, users }, props) => {
   const { id } = props.router.params;
   const question = questions[id];
-  const userAvatar = users[question?.author]?.avatarURL;
+  const userAvatar = question ? users[question?.author]?.avatarURL : null;
 
   return {
     id,
     userAvatar,
     authedUser,
     question,
-    questions,
   };
 };
 

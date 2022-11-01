@@ -21,6 +21,7 @@ const App = (props) => {
     { path: "/questions/:id", element: <Poll /> },
     { path: "/new", element: <NewPoll /> },
     { path: "/404", element: <PageNotFound /> },
+    { path: "*", element: <PageNotFound /> },
   ]);
 
   return element;

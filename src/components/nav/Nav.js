@@ -3,11 +3,15 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Nav.css";
 import { setAuthedUser } from "../../actions/authedUser";
+import { useNavigate } from "react-router-dom";
 
 const Nav = ({ authedUser, users, dispatch }) => {
+  const navigate = useNavigate();
+
   function changeUser(e, userId) {
     e.preventDefault();
     dispatch(setAuthedUser(userId));
+    navigate("/");
   }
 
   function logout(e) {
@@ -54,9 +58,7 @@ const Nav = ({ authedUser, users, dispatch }) => {
               </li>
             </ul>
 
-            {authedUser
-              ? "Hi,  " + users[authedUser].name + "."
-              : "Please login"}
+            {authedUser ? "Hi,  " + users[authedUser].name + "." : "Login ->"}
             <ul className="navbar-nav mb-2 mb-lg-0">
               <li
                 className="nav-item dropdown"
