@@ -12,7 +12,6 @@ const Home = ({ authedUser, questions, users, answeredQuestionsTotal }) => {
   const onClick = () => setShowUnansweredQuestions(!showUnansweredQuestions);
 
   const isLoggedIn = authedUser !== null;
-  console.log("isLoggedIn", isLoggedIn);
 
   if (!isLoggedIn) {
     return (
