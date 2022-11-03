@@ -7,22 +7,9 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
 import App from "./components/app/App";
-
-import logger from "./middleware/logger";
-import authedUserReducer from "./reducers/authedUser";
-import questionsReducer from "./reducers/questions";
-import usersReducer from "./reducers/users";
+import { store } from "./store/store";
 
 import "./index.css";
-
-const store = configureStore({
-  reducer: combineReducers({
-    authedUser: authedUserReducer,
-    questions: questionsReducer,
-    users: usersReducer,
-  }),
-  middleware: [thunk, logger],
-});
 
 const container = document.getElementById("root");
 const root = createRoot(container);

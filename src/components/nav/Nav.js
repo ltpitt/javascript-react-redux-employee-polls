@@ -58,7 +58,9 @@ const Nav = ({ authedUser, users, dispatch }) => {
               </li>
             </ul>
 
-            {authedUser ? "Hi,  " + users[authedUser].name + "." : "Login ->"}
+            <div id="loggedUserName" data-testid="loggedUserName">
+              {authedUser ? "Hi,  " + users[authedUser].name + "." : "Login ->"}
+            </div>
             <ul className="navbar-nav mb-2 mb-lg-0">
               <li
                 className="nav-item dropdown"
@@ -68,6 +70,7 @@ const Nav = ({ authedUser, users, dispatch }) => {
                   className="nav-link dropdown-toggle"
                   href="#"
                   id="navbarDropdown"
+                  data-testid="navbarDropdown"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
@@ -79,6 +82,7 @@ const Nav = ({ authedUser, users, dispatch }) => {
                     className="rounded-circle img-fluid"
                     height="25"
                     width="25"
+                    id="authedUserAvatar"
                   />
                 </a>
 
