@@ -8,6 +8,11 @@ import { useNavigate } from "react-router-dom";
 const Nav = ({ authedUser, users, dispatch }) => {
   const navigate = useNavigate();
 
+  const isLoggedIn = authedUser !== null;
+  if (!isLoggedIn) {
+    navigate("/auth");
+  }
+
   function changeUser(e, userId) {
     e.preventDefault();
     dispatch(setAuthedUser(userId));
@@ -92,7 +97,7 @@ const Nav = ({ authedUser, users, dispatch }) => {
                 >
                   {authedUser
                     ? Object.keys(users)
-                        .filter((user) => user !== users[authedUser].id)
+                        .filter((user) => user === users[authedUser].id)
                         .map((user) => (
                           <li
                             key={users[user].id}

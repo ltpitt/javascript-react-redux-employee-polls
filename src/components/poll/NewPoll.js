@@ -3,21 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { handleAddQuestion } from "../../actions/questions";
 import Nav from "../nav/Nav";
-import PageNotFound from "../page_not_found/PageNotFound";
 
-const NewPoll = ({ dispatch, authedUser }) => {
+const NewPoll = ({ dispatch }) => {
   const navigate = useNavigate();
   const [firstOption, setFirstOption] = useState("");
   const [secondOption, setSecondOption] = useState("");
-
-  const isLoggedIn = authedUser !== null;
-  if (!isLoggedIn) {
-    return (
-      <div>
-        <PageNotFound />
-      </div>
-    );
-  }
 
   const handleFirstOptionChange = (e) => {
     setFirstOption(e.target.value);
@@ -78,10 +68,4 @@ const NewPoll = ({ dispatch, authedUser }) => {
   );
 };
 
-const mapStateToProps = ({ authedUser }) => {
-  return {
-    authedUser,
-  };
-};
-
-export default connect(mapStateToProps)(NewPoll);
+export default connect()(NewPoll);

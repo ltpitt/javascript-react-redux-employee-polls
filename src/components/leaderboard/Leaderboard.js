@@ -1,17 +1,7 @@
 import { connect } from "react-redux";
 import Nav from "../nav/Nav";
-import PageNotFound from "../page_not_found/PageNotFound";
 
 const Leaderboard = ({ authedUser, users }) => {
-  const isLoggedIn = authedUser !== null;
-  if (!isLoggedIn) {
-    return (
-      <div>
-        <PageNotFound />
-      </div>
-    );
-  }
-
   let classification = 0;
   console.log(users);
 

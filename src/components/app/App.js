@@ -9,6 +9,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import Leaderboard from "../leaderboard/Leaderboard";
 import NewPoll from "../poll/NewPoll";
 import PageNotFound from "../page_not_found/PageNotFound";
+import Auth from "../auth/Auth";
 
 const App = (props) => {
   useEffect(() => {
@@ -20,6 +21,7 @@ const App = (props) => {
     { path: "/leaderboard", element: <Leaderboard /> },
     { path: "/questions/:id", element: <Poll /> },
     { path: "/new", element: <NewPoll /> },
+    { path: "/auth", element: <Auth /> },
     { path: "/404", element: <PageNotFound /> },
     { path: "*", element: <PageNotFound /> },
   ]);
