@@ -19,6 +19,10 @@ const NewPoll = ({ dispatch }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (firstOption === "" || secondOption === "") {
+      alert("Please fill the first the second option fields");
+      return;
+    }
     dispatch(addQuestion(firstOption, secondOption));
     navigate("/");
   };
