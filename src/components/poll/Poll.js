@@ -1,8 +1,9 @@
-import { handleSaveQuestionAnswer } from "../../actions/questions";
+import { handleAddQuestionAnswer } from "../../actions/questions";
 import Nav from "../../components/nav/Nav";
 import { connect } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./Poll.css";
+import React from "react";
 
 function roundToOneDecimal(num) {
   return Math.round(num * 10) / 10;
@@ -20,7 +21,7 @@ const withRouter = (Component) => {
   return ComponentWithRouterProp;
 };
 
-const Poll = ({ authedUser, userAvatar, question, dispatch }) => {
+const Poll = ({ authedUser, userAvatar, question, questions, dispatch }) => {
   const fristAnswerSelected =
     question.optionOne.votes.filter((v) => v === authedUser).length > 0;
 
@@ -32,12 +33,19 @@ const Poll = ({ authedUser, userAvatar, question, dispatch }) => {
   function clickButton(e, option) {
     e.preventDefault();
     dispatch(
-      handleSaveQuestionAnswer({
+      handleAddQuestionAnswer({
         authedUser: authedUser,
         qid: question.id,
         answer: option,
       })
     );
+    // dispatch(
+    //   addQuestionAnswerUser({
+    //     authedUser,
+    //     qid: question.id,
+    //     answer: option,
+    //   })
+    // );
   }
 
   return (
@@ -115,6 +123,7 @@ const Poll = ({ authedUser, userAvatar, question, dispatch }) => {
 
 const mapStateToProps = ({ authedUser, questions, users }, props) => {
   const { id } = props.router.params;
+  console.log(questions);
   const question = questions[id];
   const userAvatar = question ? users[question?.author]?.avatarURL : null;
 
@@ -123,6 +132,7 @@ const mapStateToProps = ({ authedUser, questions, users }, props) => {
     userAvatar,
     authedUser,
     question,
+    questions,
   };
 };
 

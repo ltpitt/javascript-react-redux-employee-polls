@@ -12,10 +12,19 @@ export function receiveQuestions(questions) {
   };
 }
 
-function addQuestion(question) {
+export function addQuestion(question) {
   return {
     type: ADD_QUESTION,
     question,
+  };
+}
+
+export function addQuestionAnswer({ authedUser, qid, answer }) {
+  return {
+    type: ADD_QUESTION_ANSWER,
+    authedUser,
+    qid,
+    answer,
   };
 }
 
@@ -33,18 +42,9 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
   };
 }
 
-export function saveAnswer({ authedUser, qid, answer }) {
-  return {
-    type: ADD_QUESTION_ANSWER,
-    authedUser,
-    qid,
-    answer,
-  };
-}
-
-export function handleSaveQuestionAnswer({ authedUser, qid, answer }) {
+export function handleAddQuestionAnswer({ authedUser, qid, answer }) {
   return (dispatch) => {
-    dispatch(saveAnswer({ authedUser, qid, answer }));
+    dispatch(addQuestionAnswer({ authedUser, qid, answer }));
     return _saveQuestionAnswer({ authedUser, qid, answer }).catch((e) => {
       console.error("Error: " + e);
       alert("Error: " + e);

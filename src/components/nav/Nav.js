@@ -4,14 +4,17 @@ import { Link } from "react-router-dom";
 import "./Nav.css";
 import { setAuthedUser } from "../../actions/authedUser";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Nav = ({ authedUser, users, dispatch }) => {
   const navigate = useNavigate();
 
-  const isLoggedIn = authedUser !== null;
-  if (!isLoggedIn) {
-    navigate("/auth");
-  }
+  useEffect(() => {
+    const isLoggedIn = authedUser !== null;
+    if (!isLoggedIn) {
+      navigate("/auth");
+    }
+  }, [authedUser, navigate]);
 
   function changeUser(e, userId) {
     e.preventDefault();
@@ -57,7 +60,7 @@ const Nav = ({ authedUser, users, dispatch }) => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/new">
+                <Link className="nav-link" to="/add">
                   New
                 </Link>
               </li>

@@ -20,7 +20,7 @@ const App = (props) => {
     { path: "/", element: <Home /> },
     { path: "/leaderboard", element: <Leaderboard /> },
     { path: "/questions/:id", element: <Poll /> },
-    { path: "/new", element: <NewPoll /> },
+    { path: "/add", element: <NewPoll /> },
     { path: "/auth", element: <Auth /> },
     { path: "/404", element: <PageNotFound /> },
     { path: "*", element: <PageNotFound /> },

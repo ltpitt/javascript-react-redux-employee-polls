@@ -6,7 +6,7 @@ import React from "react";
 import NewPoll from "./NewPoll";
 
 describe("NewPoll", () => {
-  it("should render the component", () => {
+  it("should render the NewPoll", () => {
     const component = render(
       <Provider store={store}>
         <BrowserRouter>
@@ -18,7 +18,7 @@ describe("NewPoll", () => {
     expect(component).toMatchSnapshot();
   });
 
-  it("should show a 404 page", () => {
+  it("should render and match snapshot", () => {
     const component = render(
       <Provider store={store}>
         <BrowserRouter>
@@ -27,11 +27,61 @@ describe("NewPoll", () => {
       </Provider>
     );
 
-    const errorCode = component.getByTestId("error-code");
-    expect(errorCode).toBeDefined();
-    expect(errorCode).toHaveTextContent("404");
+    expect(component).toBeDefined();
+    expect(component).toMatchSnapshot();
+  });
 
-    const navbarDropdown = component.getByTestId("navbarDropdown");
-    fireEvent.click(navbarDropdown);
+  it("should display all elements", () => {
+    const component = render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <NewPoll />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    const firstOptionInputElement = component.getByTestId("firstOption");
+    const secondOptionInputElement = component.getByTestId("secondOption");
+    const firstOptionLabelElement = component.getByTestId("firstOptionLabel");
+    const secondOptionLabelElement = component.getByTestId("secondOptionLabel");
+    const submitButtonElement = component.getByTestId("submit-poll");
+
+    expect(firstOptionInputElement).toBeTruthy();
+    expect(secondOptionInputElement).toBeTruthy();
+    expect(firstOptionLabelElement).toBeTruthy();
+    expect(secondOptionLabelElement).toBeTruthy();
+    expect(submitButtonElement).toBeTruthy();
+  });
+
+  it("should allow to type first option", () => {
+    const component = render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <NewPoll />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    const firstOptionInputElement = component.getByTestId("firstOption");
+    expect(firstOptionInputElement).toHaveValue("");
+
+    fireEvent.change(firstOptionInputElement, { target: { value: "Meters" } });
+    expect(firstOptionInputElement.value).toBe("Meters");
+  });
+
+  it("should allow to type second option", () => {
+    const component = render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <NewPoll />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    const secondOptionInputElement = component.getByTestId("secondOption");
+    expect(secondOptionInputElement).toHaveValue("");
+
+    fireEvent.change(secondOptionInputElement, { target: { value: "Feet" } });
+    expect(secondOptionInputElement.value).toBe("Feet");
   });
 });

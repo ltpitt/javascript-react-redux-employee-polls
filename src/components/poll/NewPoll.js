@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { handleAddQuestion } from "../../actions/questions";
+import { addQuestion } from "../../actions/questions";
 import Nav from "../nav/Nav";
 
 const NewPoll = ({ dispatch }) => {
@@ -19,7 +19,7 @@ const NewPoll = ({ dispatch }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(handleAddQuestion(firstOption, secondOption));
+    dispatch(addQuestion(firstOption, secondOption));
     navigate("/");
   };
 
@@ -30,7 +30,7 @@ const NewPoll = ({ dispatch }) => {
         <h1>New Poll</h1>
         <form onSubmit={handleSubmit}>
           <div>
-            <label>First Option</label>
+            <label data-testid="firstOptionLabel">First Option</label>
             <div className="mt-1">
               <input
                 value={firstOption}
@@ -44,7 +44,7 @@ const NewPoll = ({ dispatch }) => {
           </div>
 
           <div>
-            <label>Second Option</label>
+            <label data-testid="secondOptionLabel">Second Option</label>
             <div>
               <input
                 value={secondOption}
