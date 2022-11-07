@@ -10,6 +10,7 @@ import Leaderboard from "../leaderboard/Leaderboard";
 import NewPoll from "../poll/NewPoll";
 import PageNotFound from "../page_not_found/PageNotFound";
 import Auth from "../auth/Auth";
+import PrivateRoute from "../private_route/PrivateRoute";
 
 const App = (props) => {
   useEffect(() => {
@@ -17,16 +18,51 @@ const App = (props) => {
   });
 
   let element = useRoutes([
-    { path: "/", element: <Home /> },
-    { path: "/leaderboard", element: <Leaderboard /> },
-    { path: "/questions/:id", element: <Poll /> },
-    { path: "/add", element: <NewPoll /> },
     { path: "/auth", element: <Auth />, exact: true },
-    { path: "/404", element: <PageNotFound /> },
+    {
+      path: "/",
+      element: (
+        <PrivateRoute>
+          <Home />
+        </PrivateRoute>
+      ),
+      exact: true,
+    },
+    {
+      path: "/leaderboard",
+      element: (
+        <PrivateRoute>
+          <Leaderboard />
+        </PrivateRoute>
+      ),
+      exact: true,
+    },
+    {
+      path: "/questions/:id",
+      element: (
+        <PrivateRoute>
+          <Poll />
+        </PrivateRoute>
+      ),
+    },
+    {
+      path: "/add",
+      element: (
+        <PrivateRoute>
+          <NewPoll />
+        </PrivateRoute>
+      ),
+      exact: true,
+    },
+    { path: "/404", element: <PageNotFound />, exact: true },
     { path: "*", element: <PageNotFound /> },
   ]);
 
   return element;
 };
 
-export default connect()(App);
+const mapStateToProps = ({ authedUser }) => ({
+  loggedIn: !!authedUser,
+});
+
+export default connect(mapStateToProps)(App);

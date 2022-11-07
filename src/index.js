@@ -1,8 +1,5 @@
 import React from "react";
-import thunk from "redux-thunk";
 import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
-import { combineReducers } from "@reduxjs/toolkit";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
