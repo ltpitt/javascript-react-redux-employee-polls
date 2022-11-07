@@ -18,7 +18,7 @@ export function addQuestionAnswerUser(authedUser, qid, answer) {
   };
 }
 
-export function addQuestionUser({ author, id }) {
+export function addQuestionUser(author, id) {
   return {
     type: ADD_QUESTION_USER,
     author,
