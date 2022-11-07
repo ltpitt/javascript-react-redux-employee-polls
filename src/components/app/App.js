@@ -21,7 +21,7 @@ const App = (props) => {
     { path: "/leaderboard", element: <Leaderboard /> },
     { path: "/questions/:id", element: <Poll /> },
     { path: "/add", element: <NewPoll /> },
-    { path: "/auth", element: <Auth /> },
+    { path: "/auth", element: <Auth />, exact: true },
     { path: "/404", element: <PageNotFound /> },
     { path: "*", element: <PageNotFound /> },
   ]);

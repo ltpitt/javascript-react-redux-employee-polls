@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { addQuestion } from "../../actions/questions";
+import { handleAddQuestion } from "../../actions/questions";
 import Nav from "../nav/Nav";
 
 const NewPoll = ({ dispatch }) => {
@@ -19,11 +19,7 @@ const NewPoll = ({ dispatch }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (firstOption === "" || secondOption === "") {
-      alert("Please fill the first the second option fields");
-      return;
-    }
-    dispatch(addQuestion(firstOption, secondOption));
+    dispatch(handleAddQuestion(firstOption, secondOption));
     navigate("/");
   };
 
@@ -31,7 +27,8 @@ const NewPoll = ({ dispatch }) => {
     <div>
       <Nav />
       <div className="container">
-        <h1>New Poll</h1>
+        <h1>Would You Rather</h1>
+        <h3>Create Your Own Poll</h3>
         <form onSubmit={handleSubmit}>
           <div>
             <label data-testid="firstOptionLabel">First Option</label>

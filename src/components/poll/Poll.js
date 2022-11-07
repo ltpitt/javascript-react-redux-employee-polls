@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./Poll.css";
 import React from "react";
+import PageNotFound from "../page_not_found/PageNotFound";
 
 function roundToOneDecimal(num) {
   return Math.round(num * 10) / 10;
@@ -22,6 +23,9 @@ const withRouter = (Component) => {
 };
 
 const Poll = ({ authedUser, userAvatar, question, questions, dispatch }) => {
+  if (question === undefined) {
+    return <PageNotFound />;
+  }
   const fristAnswerSelected =
     question.optionOne.votes.filter((v) => v === authedUser).length > 0;
 
