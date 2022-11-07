@@ -30,7 +30,7 @@ const Leaderboard = ({ authedUser, users }) => {
                     <td>
                       <img alt="User avatar" src={users[user].avatarURL} />
                     </td>
-                    <td>{users[user].name})</td>
+                    <td>{users[user].name}</td>
                     <td>{users[user].questions.length}</td>
                     <td>{Object.keys(users[user].answers).length}</td>
                   </tr>
