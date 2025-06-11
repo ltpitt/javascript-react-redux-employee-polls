@@ -2,10 +2,10 @@ import React from "react";
 import "./Auth.css";
 import { connect } from "react-redux";
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router";
 import { handleLogin } from "../../actions/authedUser";
 
-const Auth = ({ dispatch, loggedIn, authedUser }) => {
+const Auth = ({ dispatch, loggedIn }) => {
   const [username, setUsername] = useState("sarahedo");
   const [password, setPassword] = useState("password123");
   if (loggedIn) {

@@ -1,9 +1,9 @@
-import { useEffect } from "react";
-import { connect } from "react-redux";
-import { handleInitialData } from "../../actions/shared";
+import {useEffect} from "react";
+import {connect} from "react-redux";
+import {handleInitialData} from "../../actions/shared";
 import Home from "../home/Home";
 import Poll from "../poll/Poll";
-import { useRoutes } from "react-router-dom";
+import {useRoutes} from "react-router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import Leaderboard from "../leaderboard/Leaderboard";
@@ -17,48 +17,46 @@ const App = (props) => {
     props.dispatch(handleInitialData());
   });
 
-  let element = useRoutes([
-    { path: "/auth", element: <Auth />, exact: true },
+  return useRoutes([
+    {path: "/auth", element: <Auth/>, exact: true},
     {
       path: "/",
       element: (
-        <PrivateRoute>
-          <Home />
-        </PrivateRoute>
+          <PrivateRoute>
+            <Home/>
+          </PrivateRoute>
       ),
       exact: true,
     },
     {
       path: "/leaderboard",
       element: (
-        <PrivateRoute>
-          <Leaderboard />
-        </PrivateRoute>
+          <PrivateRoute>
+            <Leaderboard/>
+          </PrivateRoute>
       ),
       exact: true,
     },
     {
       path: "/questions/:id",
       element: (
-        <PrivateRoute>
-          <Poll />
-        </PrivateRoute>
+          <PrivateRoute>
+            <Poll/>
+          </PrivateRoute>
       ),
     },
     {
       path: "/add",
       element: (
-        <PrivateRoute>
-          <NewPoll />
-        </PrivateRoute>
+          <PrivateRoute>
+            <NewPoll/>
+          </PrivateRoute>
       ),
       exact: true,
     },
-    { path: "/404", element: <PageNotFound />, exact: true },
-    { path: "*", element: <PageNotFound /> },
+    {path: "/404", element: <PageNotFound/>, exact: true},
+    {path: "*", element: <PageNotFound/>},
   ]);
-
-  return element;
 };
 
 const mapStateToProps = ({ authedUser }) => ({

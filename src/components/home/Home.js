@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import Nav from "../nav/Nav";
 import Question from "../question/Question";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const Home = ({ authedUser, questions, users, answeredQuestionsTotal }) => {
   const [showUnansweredQuestions, setShowUnansweredQuestions] =

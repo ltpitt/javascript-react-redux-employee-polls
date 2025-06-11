@@ -1,7 +1,7 @@
-import { handleAddQuestionAnswer } from "../../actions/questions";
+import {handleAddQuestionAnswer} from "../../actions/questions";
 import Nav from "../../components/nav/Nav";
-import { connect } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {connect} from "react-redux";
+import {useLocation, useNavigate, useParams} from "react-router";
 import "./Poll.css";
 import React from "react";
 import PageNotFound from "../page_not_found/PageNotFound";
@@ -11,18 +11,16 @@ function roundToOneDecimal(num) {
 }
 
 const withRouter = (Component) => {
-  const ComponentWithRouterProp = (props) => {
+  return (props) => {
     let params = useParams();
     let navigate = useNavigate();
     let location = useLocation();
 
-    return <Component {...props} router={{ location, navigate, params }} />;
+    return <Component {...props} router={{location, navigate, params}}/>;
   };
-
-  return ComponentWithRouterProp;
 };
 
-const Poll = ({ authedUser, userAvatar, question, questions, dispatch }) => {
+const Poll = ({ authedUser, userAvatar, question, dispatch }) => {
   if (question === undefined) {
     return <PageNotFound />;
   }

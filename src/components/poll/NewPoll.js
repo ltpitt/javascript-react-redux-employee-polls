@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useState } from "react";
 import { handleAddQuestion } from "../../actions/questions";
 import Nav from "../nav/Nav";

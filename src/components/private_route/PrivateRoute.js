@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router";
 import { connect } from "react-redux";
 
 const PrivateRoute = ({ children, loggedIn }) => {
