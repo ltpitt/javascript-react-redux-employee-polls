@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NewPoll Component should render and match snapshot 1`] = `
+exports[`Poll Component should render and match snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -14,56 +14,39 @@ Object {
         <div
           class="container"
         >
-          <h1>
-            Would You Rather
-          </h1>
-          <h3>
-            Create Your Own Poll
-          </h3>
-          <form>
-            <div>
-              <label
-                data-testid="firstOptionLabel"
-              >
-                First Option
-              </label>
-              <div
-                class="mt-1"
-              >
-                <input
-                  data-testid="firstOption"
-                  id="firstOption"
-                  name="firstOption"
-                  type="text"
-                  value=""
-                />
-              </div>
-            </div>
-            <div>
-              <label
-                data-testid="secondOptionLabel"
-              >
-                Second Option
-              </label>
-              <div>
-                <input
-                  data-testid="secondOption"
-                  id="secondOption"
-                  name="secondOption"
-                  type="text"
-                  value=""
-                />
-              </div>
-            </div>
-            <div>
+          <div
+            class="wrapper-container"
+          >
+            <h1>
+              Poll by 
+              sarahedo
+            </h1>
+            <figure>
+              <img
+                alt="Author Avatar"
+                src="test-avatar.jpg"
+              />
+            </figure>
+            <h1>
+              Would You Rather
+            </h1>
+            <div
+              class="option-container"
+            >
               <button
-                data-testid="submit-poll"
-                type="submit"
+                class="button-"
+                id="optionOne"
               >
-                Submit
+                have horrible short term memory
+              </button>
+              <button
+                class="button-"
+                id="optionTwo"
+              >
+                have horrible long term memory
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
@@ -78,56 +61,39 @@ Object {
       <div
         class="container"
       >
-        <h1>
-          Would You Rather
-        </h1>
-        <h3>
-          Create Your Own Poll
-        </h3>
-        <form>
-          <div>
-            <label
-              data-testid="firstOptionLabel"
-            >
-              First Option
-            </label>
-            <div
-              class="mt-1"
-            >
-              <input
-                data-testid="firstOption"
-                id="firstOption"
-                name="firstOption"
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
-          <div>
-            <label
-              data-testid="secondOptionLabel"
-            >
-              Second Option
-            </label>
-            <div>
-              <input
-                data-testid="secondOption"
-                id="secondOption"
-                name="secondOption"
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
-          <div>
+        <div
+          class="wrapper-container"
+        >
+          <h1>
+            Poll by 
+            sarahedo
+          </h1>
+          <figure>
+            <img
+              alt="Author Avatar"
+              src="test-avatar.jpg"
+            />
+          </figure>
+          <h1>
+            Would You Rather
+          </h1>
+          <div
+            class="option-container"
+          >
             <button
-              data-testid="submit-poll"
-              type="submit"
+              class="button-"
+              id="optionOne"
             >
-              Submit
+              have horrible short term memory
+            </button>
+            <button
+              class="button-"
+              id="optionTwo"
+            >
+              have horrible long term memory
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>,
