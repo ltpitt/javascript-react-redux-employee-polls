@@ -3,7 +3,6 @@ import Nav from "../nav/Nav";
 
 const Leaderboard = ({ authedUser, users }) => {
   let classification = 0;
-  console.log(users);
 
   return (
     <div>

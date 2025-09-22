@@ -125,7 +125,6 @@ const Poll = ({ authedUser, userAvatar, question, dispatch }) => {
 
 const mapStateToProps = ({ authedUser, questions, users }, props) => {
   const { id } = props.router.params;
-  console.log(questions);
   const question = questions[id];
   const userAvatar = question ? users[question?.author]?.avatarURL : null;
 
